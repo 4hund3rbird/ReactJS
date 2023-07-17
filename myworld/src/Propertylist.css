@@ -1,0 +1,23 @@
+.Card{
+    border: 1px solid white;
+    width: 300px;
+    height: 350px;
+    margin: 20px;
+    padding: 10px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+.Card button{
+    margin-bottom: 20px;
+}
+
+.Container{
+    display: flex;
+    margin: auto;
+    list-style: none;
+}
