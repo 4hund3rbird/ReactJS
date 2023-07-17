@@ -1,11 +1,12 @@
 import Square from "./Square";
+import '../styles/Square.css'
+import Board from "./Board";
 
 function Game(){
    
     return(
         <>
-            <h3>This is Game Component</h3>
-            <Square/>
+           <Board/>
         </>
     )
 }

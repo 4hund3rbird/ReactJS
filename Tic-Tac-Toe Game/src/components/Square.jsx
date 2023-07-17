@@ -1,16 +1,29 @@
-import { useState } from 'react';
 import '../styles/Square.css'
-function Square(){
+function Square({index,jindex,value,fun}){
+    console.log(value);
+    const handleclick=()=>{
+        fun(index,jindex);
+    }
 
-    let [c,update]=useState(true);
-
-    function handleclick(){
-        update(c=!c)
+    let render=' ';
+    console.log(value[index][jindex]);
+    switch(value[index][jindex]){
+        case 0:
+            render="O";
+            break;
+        case 1:
+            render="X";
+            break;
+        case -1:
+            render=" "
+            break;
+        default:
+            break;
     }
     return(
         <>
-        <div onClick={handleclick} id="Square">
-            <h1>{c?'X':'O'}</h1>
+        <div onClick={handleclick} id="Square" >
+            <button>{render}</button>
         </div>
         </>
     )
