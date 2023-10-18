@@ -156,3 +156,64 @@ console.log([...n]);
 let [book1, book2, book3, ...otherbooks] = getBooks();
 console.log(otherbooks);
 book1;
+
+book1;
+const updatedBook = { ...book1, ratingsCount: 1000, hero: "Justin Timberlake" };
+
+updatedBook;
+updatedBook.ratingsCount > 900 ? console.log("hello") : console.log("no");
+console.log(updatedBook.genres);
+const newgeneres = updatedBook.genres.map((e) =>
+  e == "high-fantasy" ? "thriller" : e
+);
+newgeneres;
+
+const newBooks = getBooks().map((book) => {
+  return { title: book.title, genres: book.genres };
+});
+
+newBooks;
+
+const lessBooks = getBooks()
+  .filter((book) => book.pages > 600)
+  .filter((book) => book.hasMovieAdaptation)
+  .map((book) => book.title);
+lessBooks;
+
+const adventureBooks = getBooks()
+  .filter((book) => book.genres.includes("adventure"))
+  .map((book) => book.title);
+adventureBooks;
+
+const totalPages = getBooks().reduce((pages, book) => book.pages + pages, 0);
+totalPages;
+
+let avgRatings = getBooks().reduce(
+  (avg, book) => book.reviews.goodreads.rating + avg,
+  0
+);
+avgRatings /= getBooks().length;
+avgRatings;
+
+let arr = [12, 32, 12, 4, 3, 54, 32, 554];
+
+let m = arr.slice().sort((a, b) => a - b);
+m;
+arr;
+console.log(arr.sort((a, b) => a - b));
+console.log(arr.sort((a, b) => b - a));
+
+let sortedbyPages = getBooks()
+  .map((book) => book.reviews.goodreads.ratingsCount)
+  .sort((a, b) => a - b);
+sortedbyPages;
+
+let s = getBooks()
+  .sort(
+    (a, b) =>
+      b.reviews.goodreads.ratingsCount - a.reviews.goodreads.ratingsCount
+  )
+  .map((book) => {
+    return [book.title, book.reviews.goodreads.ratingsCount];
+  });
+s;
