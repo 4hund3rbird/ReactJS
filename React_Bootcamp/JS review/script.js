@@ -1,3 +1,4 @@
+/*
 const data = [
   {
     id: 1,
@@ -217,3 +218,39 @@ let s = getBooks()
     return [book.title, book.reviews.goodreads.ratingsCount];
   });
 s;
+
+const newBook = {
+  id: 6,
+  title: "Elden Ring",
+  pages: 100202,
+};
+
+const NewBooks = [...getBooks(), newBook];
+NewBooks;
+
+console.log(getBooks());
+console.log(data);
+
+const addedBooks = NewBooks.filter((book) => book.id != 3);
+addedBooks;
+const deletedBooks = NewBooks.filter((book) => book.id != 6).sort(
+  (a, b) => a.id - b.id
+);
+deletedBooks;
+*/
+
+// Promises for asynchronous functions
+
+// await fetch("https://jsonplaceholder.typicode.com/todos/1")
+//   .then((data) => data.json())
+//   .then((data) => console.log(data));
+
+// console.log("hello");
+
+const getdata = async () => {
+  const data = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const newdata = await data.json();
+  console.log(newdata);
+};
+
+getdata();
