@@ -1,17 +1,68 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+function App() {
+  return (
+    <div className="container">
+      <Header />
+      <Menu />
+      <Footer />
+    </div>
+  );
+}
+
+function Header() {
+  return (
+    <div className="header">
+      <h1>Fast React Pizza.co</h1>
+    </div>
+  );
+}
+function Menu() {
+  return (
+    <div className="menu">
+      <h2>OUR MENU</h2>
+      <Pizza />
+      <Pizza />
+      <Pizza />
+      <Pizza />
+      <Pizza />
+      <Pizza />
+    </div>
+  );
+}
+function Footer() {
+  const openhours = 10;
+  const closehours = 18;
+  let condition = false;
+  if (
+    new Date().getHours() <= closehours &&
+    new Date().getHours() >= openhours
+  ) {
+    condition = true;
+  }
+  return (
+    <footer className=".footer">
+      {new Date().toLocaleTimeString()} ---
+      {condition ? "We are Open." : "We are closed right now"}.
+    </footer>
+  );
+}
+
+function Pizza() {
+  return (
+    <div className="pizza">
+      <img src="pizzas/focaccia.jpg" alt="pizza image"></img>
+      <h3>Focaccia</h3>
+      <p>Tomato and mozarella</p>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
