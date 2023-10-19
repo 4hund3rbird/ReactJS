@@ -28,7 +28,7 @@ function Menu() {
   return (
     <div className="menu">
       <h2>OUR MENU</h2>
-      {pizzalist}
+      <ul className="pizzas">{pizzalist}</ul>
     </div>
   );
 }
@@ -44,19 +44,29 @@ function Footer() {
   }
   return (
     <footer className=".footer">
-      {new Date().toLocaleTimeString()} ---
-      {condition ? "We are Open." : "We are closed right now"}.
+      {new Date().toLocaleTimeString()}.
+      {condition ? (
+        <div className="order">
+          <p>We are Open right now !! Come and order some food 🌝</p>
+          <button className="btn">Order</button>
+        </div>
+      ) : (
+        <p>"We are closed right now"</p>
+      )}
+      .
     </footer>
   );
 }
 
 function Pizza(props) {
+  const pizzaSoldout = props.data.soldOut;
   return (
-    <div className="pizza">
+    <div className={`${pizzaSoldout ? "pizza sold-out" : "pizza"}`}>
       <img src={props.data.photoName} alt={`${props.data.name} name`}></img>
       <div>
         <h3>{props.data.name}</h3>
         <p>{props.data.ingredients}</p>
+        {pizzaSoldout ? <span>SOLD OUT</span> : <h3>{props.data.price}</h3>}
       </div>
     </div>
   );
