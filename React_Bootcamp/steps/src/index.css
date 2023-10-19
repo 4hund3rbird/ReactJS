@@ -61,6 +61,8 @@ body {
 }
 
 .buttons button {
+  background-color: #7950f2;
+  color: white;
   border: none;
   cursor: pointer;
   padding: 10px 15px;
@@ -83,10 +85,15 @@ h3 {
   text-transform: uppercase;
 }
 
+.sheet {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
+  position: relative;
+  left: 430px;
+  top: -10px;
   border: none;
   background: none;
   cursor: pointer;
