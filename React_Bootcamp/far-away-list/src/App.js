@@ -7,26 +7,13 @@ export default function App() {
     { id: 3, item: "cola", qty: 9, packed: false },
     { id: 4, item: "brush", qty: 2, packed: false },
   ]);
-  const [itemcount, updateCount] = useState(list.length);
-  const [packeditems, updatepacked] = useState(
-    list.filter((e) => e.packed).length
-  );
-  function handlepackcount(i) {
-    if (i) {
-      updatepacked((e) => e - 1);
-    } else {
-      updatepacked((e) => e + 1);
-    }
-  }
+
   function removeitem(id) {
-    updateCount((i) => i - 1);
-    handlepackcount(true);
     updateList((list) => {
       return list.filter((item) => item.id !== id);
     });
   }
   function additem(i, q) {
-    updateCount((i) => i + 1);
     updateList((list) => {
       return [
         ...list,
@@ -53,12 +40,7 @@ export default function App() {
     <div className="app">
       <Logo />
       <Form fun3={additem} />
-      <Packinglist
-        l={list}
-        fun1={removeitem}
-        fun2={packitem}
-        fun3={handlepackcount}
-      />
+      <Packinglist l={list} fun1={removeitem} fun2={packitem} />
       <Stats l={list} i={list.length} p={list.filter((e) => e.packed).length} />
     </div>
   );
