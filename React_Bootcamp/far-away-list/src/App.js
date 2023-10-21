@@ -1,22 +1,33 @@
 import { useState } from "react";
 
 export default function App() {
-  let itemcount = 4;
-  let [list, updateList] = useState([
-    { id: 1, item: "soap", qty: 3, packed: false },
+  const [list, updateList] = useState([
+    { id: 1, item: "soap", qty: 3, packed: true },
     { id: 2, item: "socks", qty: 4, packed: false },
     { id: 3, item: "cola", qty: 9, packed: false },
     { id: 4, item: "brush", qty: 2, packed: false },
   ]);
+  const [itemcount, updateCount] = useState(list.length);
+  const [packeditems, updatepacked] = useState(
+    list.filter((e) => e.packed).length
+  );
+  function handlepackcount(i) {
+    if (i) {
+      updatepacked((e) => e - 1);
+    } else {
+      updatepacked((e) => e + 1);
+    }
+  }
   function removeitem(id) {
+    updateCount((i) => i - 1);
+    handlepackcount(true);
     updateList((list) => {
-      itemcount--;
       return list.filter((item) => item.id !== id);
     });
   }
   function additem(i, q) {
+    updateCount((i) => i + 1);
     updateList((list) => {
-      itemcount++;
       return [
         ...list,
         {
@@ -32,7 +43,7 @@ export default function App() {
     updateList((list) => {
       return list.map((item) => {
         if (item.id === id) {
-          item.packed = !item.packed;
+          return { ...item, packed: !item.packed };
         }
         return item;
       });
@@ -42,8 +53,13 @@ export default function App() {
     <div className="app">
       <Logo />
       <Form fun3={additem} />
-      <Packinglist l={list} fun1={removeitem} fun2={packitem} />
-      <Stats />
+      <Packinglist
+        l={list}
+        fun1={removeitem}
+        fun2={packitem}
+        fun3={handlepackcount}
+      />
+      <Stats l={list} i={list.length} p={list.filter((e) => e.packed).length} />
     </div>
   );
 }
@@ -80,7 +96,7 @@ function Form({ fun3 }) {
     </form>
   );
 }
-function Packinglist({ l, fun1, fun2 }) {
+function Packinglist({ l, fun1, fun2, fun3 }) {
   return (
     <div className="list">
       <ul>
@@ -94,6 +110,7 @@ function Packinglist({ l, fun1, fun2 }) {
               ispacked={e.packed}
               handleupdate={fun1}
               handlepack={fun2}
+              updatepack={fun3}
             />
           );
         })}
@@ -101,21 +118,19 @@ function Packinglist({ l, fun1, fun2 }) {
     </div>
   );
 }
-function Item({ id, i, q, ispacked, handleupdate, handlepack }) {
-  const [ischecked, updatecheck] = useState(false);
+function Item({ id, i, q, ispacked, handleupdate, handlepack, updatepack }) {
   return (
     <li>
       <span>
         <input
           type="checkbox"
-          checked={ischecked}
+          checked={ispacked}
           onChange={(evt) => {
-            updatecheck(!ischecked);
             handlepack(id);
           }}
         ></input>
       </span>
-      <span className={ischecked ? "packeditem" : " "}>
+      <span className={ispacked ? "packeditem" : " "}>
         {i} - {q}
       </span>
       <span>
@@ -130,10 +145,14 @@ function Item({ id, i, q, ispacked, handleupdate, handlepack }) {
     </li>
   );
 }
-function Stats() {
+function Stats({ l, i, p }) {
   return (
     <footer className="stats">
-      <em>You have x items on your list, and you already packed X%;</em>
+      <em>
+        You have {i} items on your list, and you already packed{" "}
+        {Math.floor((p / i) * 100) ? Math.floor((p / i) * 100) : 0}
+        %;
+      </em>
     </footer>
   );
 }
