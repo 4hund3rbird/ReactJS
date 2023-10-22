@@ -142,8 +142,8 @@ input[type="checkbox"] {
   text-decoration: line-through;
 }
 
-footer {
-  width: 100%;
-  position: fixed;
-  bottom: 0px;
-}
+/* footer { */
+/* width: 100%; */
+/* position: fixed; */
+/* bottom: 0px; */
+/* } */
