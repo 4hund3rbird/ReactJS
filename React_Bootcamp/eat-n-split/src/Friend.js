@@ -1,11 +1,22 @@
 import Button from "./Button";
-export default function Friend({ friend, fun1, fun2 }) {
+import { useState } from "react";
+export default function Friend({
+  friend,
+  fun1,
+  fun2,
+  activefriend,
+  updateactivefriend,
+  key,
+}) {
+  const [open, updateopen] = useState(false);
   function handlefriend() {
     fun1();
     fun2(friend);
+    updateopen(!open);
+    updateactivefriend(key);
   }
   return (
-    <li>
+    <li style={open ? { backgroundColor: "#fff4e6" } : {}}>
       <img src={friend.image} alt={friend.name} />
       <h3>{friend.name}</h3>
       <p
@@ -21,7 +32,9 @@ export default function Friend({ friend, fun1, fun2 }) {
           ? `You and ${friend.name} are even`
           : `You owe ${friend.name} ${-friend.balance}$`}
       </p>
-      <Button fun={handlefriend}>Select</Button>
+      <Button fun={handlefriend}>
+        {open && key === activefriend ? "close" : "select"}
+      </Button>
     </li>
   );
 }

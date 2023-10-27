@@ -10,6 +10,7 @@ export default function Friendslist({
   friends,
   updatefriend,
 }) {
+  const [activefriend, updateactivefriend] = useState(1);
   const [friendformisopen, togglefriendform] = useState(false);
   function toggle() {
     togglefriendform(!friendformisopen);
@@ -19,7 +20,14 @@ export default function Friendslist({
     <ul>
       {friends.map((e) => {
         return (
-          <Friend key={e.id} friend={e} fun1={funtoggle} fun2={funfriend} />
+          <Friend
+            key={e.id}
+            activefriend={activefriend}
+            updateactivefriend={(e) => updateactivefriend(e)}
+            friend={e}
+            fun1={funtoggle}
+            fun2={funfriend}
+          />
         );
       })}
 
