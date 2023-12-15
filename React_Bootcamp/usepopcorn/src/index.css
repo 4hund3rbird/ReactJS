@@ -37,7 +37,7 @@ body {
   align-items: center;
   height: 7.2rem;
   padding: 0 3.2rem;
-  background-color: var(--color-primary);
+  background: linear-gradient(#6741d9, #525252);
   border-radius: 0.9rem;
 }
 
@@ -54,7 +54,7 @@ body {
   max-width: 42rem;
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
-  /* overflow: scroll;   */
+  overflow: scroll;
   position: relative;
 }
 
@@ -144,8 +144,10 @@ body {
 .list-watched {
   height: calc(100% - 9rem);
 }
-
 .list li {
+  padding: 10px;
+}
+.list li .container {
   position: relative;
   display: grid;
   grid-template-columns: 4rem 1fr;
@@ -157,7 +159,16 @@ body {
   padding: 1.6rem 3.2rem;
   border-bottom: 1px solid var(--color-background-100);
 }
-
+.container {
+  border-radius: 25px;
+  transition: all ease-in-out 150ms;
+}
+.container:hover {
+  background: linear-gradient(#6741d9, #525252);
+  /* background-color: #6741d9; */
+  transform: translateY(-10px);
+  cursor: pointer;
+}
 .list.list-movies li {
   cursor: pointer;
   transition: all 0.3s;
@@ -289,11 +300,12 @@ body {
   display: flex;
   justify-content: center;
   /* flex-direction: column; */
-  gap: 1.2rem;
+  gap: 1.9rem;
 }
 
 .rating h2 {
   color: yellow;
+  width: 2em;
 }
 .rating p {
   color: yellow;
@@ -390,3 +402,12 @@ EMPTY STAR
 </svg>
 
 */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

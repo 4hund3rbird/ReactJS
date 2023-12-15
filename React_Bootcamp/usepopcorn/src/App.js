@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Starrating from "./Starrating";
 const tempMovieData = [
   {
@@ -23,7 +23,6 @@ const tempMovieData = [
       "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
   },
 ];
-
 const tempWatchedData = [
   {
     imdbID: "tt1375666",
@@ -46,36 +45,150 @@ const tempWatchedData = [
     userRating: 9,
   },
 ];
-
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
-
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
+  const [isLoading, setisLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [selectedId, setSelectedId] = useState();
+  const [selectedMovie, setSelectedMovie] = useState({});
+  const [isDetailsLoading, setDetailsLoading] = useState(false);
+  let search = "interstellar";
+  useEffect(
+    function () {
+      async function fetchdetails() {
+        setDetailsLoading(true);
+        const res = await fetch(
+          `http://www.omdbapi.com/?apikey=1a7f00bc&&i=${selectedId}`
+        );
+        const data = await res.json();
+        console.log(data);
+        setSelectedMovie(data);
+        setDetailsLoading(false);
+      }
+      if (selectedId) {
+        fetchdetails();
+      }
+    },
+    [selectedId]
+  );
+  useEffect(
+    function () {
+      async function fetchmovies() {
+        try {
+          setisLoading(true);
+          setError("");
+          console.log(query);
+          const response = await fetch(
+            `http://www.omdbapi.com/?apikey=1a7f00bc&&s=${query}`
+          );
+          if (!response.ok) {
+            throw new Error("Something went wrong so please try again");
+          }
+          const data = await response.json();
+
+          if (data.Response === "False") {
+            throw new Error("Movies not found");
+          }
+          console.log(data.Search);
+          setMovies(data.Search);
+        } catch (err) {
+          setError(err.message);
+          console.log(err.message);
+        } finally {
+          setisLoading(false);
+        }
+      }
+
+      if (query.length < 2) {
+        setMovies([]);
+        setError("");
+        return;
+      }
+      fetchmovies();
+    },
+    [query]
+  );
 
   return (
     <>
       <Nav query={query} setQuery={setQuery} movies={movies} />
       <Main>
         <Box>
-          <Movielist movies={movies} />
-          <Starrating />
+          {isLoading && <Loader />}
+          {error && <Errormessage msg={error} />}
+          {!isLoading && !error && (
+            <Movielist movies={movies} setSelectedId={setSelectedId} />
+          )}
         </Box>
         <Box>
-          <Watchedsummary watched={watched} />
-          <Watchlist watched={watched} />
+          {isDetailsLoading && <Loader />}
+          {!isDetailsLoading && selectedId && (
+            <MovieDetails
+              imdbID={selectedId}
+              movie={selectedMovie}
+              isLoading={isDetailsLoading}
+            />
+          )}
+          {!selectedId && !isDetailsLoading && (
+            <>
+              <Watchedsummary watched={watched} />
+              <Watchlist watched={watched} />
+            </>
+          )}
         </Box>
       </Main>
     </>
   );
 }
 
+function MovieDetails({ imdbID, movie, isoading }) {
+  return (
+    <div>
+      <div className="details">
+        <header>
+          <button className="btn-back">&larr;</button>
+          <img src={movie.Poster} alt={`poster of movie ${movie.Title}`} />
+          <div className="details-overview">
+            <h2>{movie.Title}</h2>
+            <p>
+              {movie.Released} &bull; {movie.Runtime}
+            </p>
+            <p>{movie.Genre}</p>
+            <p>
+              <span>⭐</span>
+              {movie.imdbRating} Imdb rating
+            </p>
+          </div>
+        </header>
+        <section>
+          <Starrating />
+
+          <em>{movie.Plot}</em>
+          <p>Starring : {movie.Actors}</p>
+          <p>Directed by : {movie.Director}</p>
+        </section>
+      </div>
+    </div>
+  );
+}
+
 function Main({ children }) {
   return <main className="main">{children}</main>;
 }
-
+function Errormessage({ msg }) {
+  return <p className="loader">❌ {msg} !</p>;
+}
+function Loader() {
+  return (
+    <>
+      <p className="loader">Loading...</p>
+    </>
+  );
+}
 function Nav({ query, setQuery, movies }) {
   return (
     <nav className="nav-bar">
@@ -100,7 +213,7 @@ function Nav({ query, setQuery, movies }) {
 function Box({ children }) {
   const [isOpen1, setIsOpen1] = useState(true);
   return (
-    <div className="box">
+    <div className="box no-scrollbar">
       <button
         className="btn-toggle"
         onClick={() => setIsOpen1((open) => !open)}
@@ -112,18 +225,25 @@ function Box({ children }) {
   );
 }
 
-function Movielist({ movies }) {
+function Movielist({ movies, setSelectedId }) {
   return (
     <ul className="list">
       {movies?.map((movie) => (
-        <li key={movie.imdbID}>
-          <img src={movie.Poster} alt={`${movie.Title} poster`} />
-          <h3>{movie.Title}</h3>
-          <div>
-            <p>
-              <span>🗓</span>
-              <span>{movie.Year}</span>
-            </p>
+        <li
+          key={movie.imdbID}
+          onClick={() => {
+            setSelectedId(movie.imdbID);
+          }}
+        >
+          <div className="container">
+            <img src={movie.Poster} alt={`${movie.Title} poster`} />
+            <h3>{movie.Title}</h3>
+            <div>
+              <p>
+                <span>🗓</span>
+                <span>{movie.Year}</span>
+              </p>
+            </div>
           </div>
         </li>
       ))}
@@ -137,21 +257,23 @@ function Watchlist({ watched }) {
       <ul className="list">
         {watched.map((movie) => (
           <li key={movie.imdbID}>
-            <img src={movie.Poster} alt={`${movie.Title} poster`} />
-            <h3>{movie.Title}</h3>
-            <div>
-              <p>
-                <span>⭐️</span>
-                <span>{movie.imdbRating}</span>
-              </p>
-              <p>
-                <span>🌟</span>
-                <span>{movie.userRating}</span>
-              </p>
-              <p>
-                <span>⏳</span>
-                <span>{movie.runtime} min</span>
-              </p>
+            <div className="container">
+              <img src={movie.Poster} alt={`${movie.Title} poster`} />
+              <h3>{movie.Title}</h3>
+              <div>
+                <p>
+                  <span>⭐️</span>
+                  <span>{movie.imdbRating}</span>
+                </p>
+                <p>
+                  <span>🌟</span>
+                  <span>{movie.userRating}</span>
+                </p>
+                <p>
+                  <span>⏳</span>
+                  <span>{movie.runtime} min</span>
+                </p>
+              </div>
             </div>
           </li>
         ))}
