@@ -45,6 +45,7 @@ const tempWatchedData = [
     userRating: 9,
   },
 ];
+
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 export default function App() {
@@ -57,6 +58,7 @@ export default function App() {
   const [selectedMovie, setSelectedMovie] = useState({});
   const [isDetailsLoading, setDetailsLoading] = useState(false);
   let search = "interstellar";
+
   useEffect(
     function () {
       async function fetchdetails() {
@@ -75,6 +77,7 @@ export default function App() {
     },
     [selectedId]
   );
+
   useEffect(
     function () {
       async function fetchmovies() {
@@ -189,6 +192,7 @@ function Loader() {
     </>
   );
 }
+
 function Nav({ query, setQuery, movies }) {
   return (
     <nav className="nav-bar">
