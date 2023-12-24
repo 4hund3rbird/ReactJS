@@ -48,15 +48,17 @@ const tempWatchedData = [
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+
 export default function App() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState();
   const [selectedMovie, setSelectedMovie] = useState({});
   const [isDetailsLoading, setDetailsLoading] = useState(false);
+  const [isMoviedetails, setisMovieDetails] = useState(false);
   let search = "interstellar";
 
   useEffect(
@@ -132,6 +134,7 @@ export default function App() {
           {!isDetailsLoading && selectedId && (
             <MovieDetails
               imdbID={selectedId}
+              updateId={setSelectedId}
               movie={selectedMovie}
               isLoading={isDetailsLoading}
             />
@@ -148,12 +151,19 @@ export default function App() {
   );
 }
 
-function MovieDetails({ imdbID, movie, isoading }) {
+function MovieDetails({ imdbID, movie, isoading, updateId }) {
   return (
     <div>
       <div className="details">
         <header>
-          <button className="btn-back">&larr;</button>
+          <button
+            className="btn-back"
+            onClick={() => {
+              updateId();
+            }}
+          >
+            &larr;
+          </button>
           <img src={movie.Poster} alt={`poster of movie ${movie.Title}`} />
           <div className="details-overview">
             <h2>{movie.Title}</h2>
