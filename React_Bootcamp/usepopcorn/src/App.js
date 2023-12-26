@@ -137,6 +137,9 @@ export default function App() {
               updateId={setSelectedId}
               movie={selectedMovie}
               isLoading={isDetailsLoading}
+              watched={watched}
+              setWatched={setWatched}
+              handleAddWatchedMovies={handleAddWatchedMovies}
             />
           )}
           {!selectedId && !isDetailsLoading && (
@@ -151,7 +154,13 @@ export default function App() {
   );
 }
 
-function MovieDetails({ imdbID, movie, isoading, updateId }) {
+function MovieDetails({
+  imdbID,
+  movie,
+  isoading,
+  updateId,
+  handleAddWatchedMovies,
+}) {
   return (
     <div>
       <div className="details">
@@ -178,7 +187,11 @@ function MovieDetails({ imdbID, movie, isoading, updateId }) {
           </div>
         </header>
         <section>
-          <Starrating />
+          <Starrating>
+            <button className="btn-add" onClick={handleAddWatchedMovies(movie)}>
+              Add to Watchlist
+            </button>
+          </Starrating>
 
           <em>{movie.Plot}</em>
           <p>Starring : {movie.Actors}</p>

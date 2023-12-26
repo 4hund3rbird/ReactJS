@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { Children, useState } from "react";
 
 const KEY = "1a7f00bc";
 
-export default function Starrating() {
+export default function Starrating({ children }) {
   const [rating, setrating] = useState(0);
   const [temprating, settemprating] = useState(0);
   let onClick = false;
@@ -27,6 +27,7 @@ export default function Starrating() {
             />
           </span>
         ))}
+        {children}
       </span>
     </div>
   );
