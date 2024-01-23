@@ -118,6 +118,11 @@ export default function App() {
     [query]
   );
 
+  const handleAddWatchedMovies = (movie) => {
+    setWatched(() => {
+      return [...watched, movie];
+    });
+  };
   return (
     <>
       <Nav query={query} setQuery={setQuery} movies={movies} />
@@ -188,7 +193,12 @@ function MovieDetails({
         </header>
         <section>
           <Starrating>
-            <button className="btn-add" onClick={handleAddWatchedMovies(movie)}>
+            <button
+              className="btn-add"
+              onClick={() => {
+                handleAddWatchedMovies(movie);
+              }}
+            >
               Add to Watchlist
             </button>
           </Starrating>
