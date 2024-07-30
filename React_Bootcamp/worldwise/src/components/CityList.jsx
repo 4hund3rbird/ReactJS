@@ -3,8 +3,10 @@ import styles from "./CityList.module.css";
 import CityItem from "./CityItem";
 
 import Message from "./Message";
+import { useCities } from "../contexts/CitiesContext";
 
-const CityList = ({ cities, isloading }) => {
+const CityList = () => {
+  const { cities, isloading } = useCities();
   if (!cities.length) {
     return <Message message="Add your first city from the map." />;
   }

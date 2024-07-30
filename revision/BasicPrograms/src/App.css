@@ -1,0 +1,10 @@
+.container {
+  width: full;
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 20px;
+}
+
+.completed {
+  text-decoration: line-through;
+}
