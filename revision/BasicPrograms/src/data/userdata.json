@@ -1,0 +1,140 @@
+[
+  {
+    "username": "AliceSmith",
+    "age": 25,
+    "gender": "female",
+    "hobby": "reading"
+  },
+  {
+    "username": "JohnDoe",
+    "age": 30,
+    "gender": "male",
+    "hobby": "swimming"
+  },
+  {
+    "username": "EmilyJones",
+    "age": 22,
+    "gender": "female",
+    "hobby": "gaming"
+  },
+  {
+    "username": "MichaelBrown",
+    "age": 28,
+    "gender": "male",
+    "hobby": "hiking"
+  },
+  {
+    "username": "SophiaDavis",
+    "age": 35,
+    "gender": "female",
+    "hobby": "cooking"
+  },
+  {
+    "username": "DavidWilson",
+    "age": 24,
+    "gender": "male",
+    "hobby": "dancing"
+  },
+  {
+    "username": "OliviaMoore",
+    "age": 27,
+    "gender": "female",
+    "hobby": "photography"
+  },
+  {
+    "username": "JamesTaylor",
+    "age": 29,
+    "gender": "male",
+    "hobby": "painting"
+  },
+  {
+    "username": "EmmaAnderson",
+    "age": 23,
+    "gender": "female",
+    "hobby": "writing"
+  },
+  {
+    "username": "ChrisMartin",
+    "age": 26,
+    "gender": "male",
+    "hobby": "traveling"
+  },
+  {
+    "username": "GraceLee",
+    "age": 32,
+    "gender": "female",
+    "hobby": "knitting"
+  },
+  {
+    "username": "DanielHarris",
+    "age": 21,
+    "gender": "male",
+    "hobby": "coding"
+  },
+  {
+    "username": "MiaClark",
+    "age": 33,
+    "gender": "female",
+    "hobby": "yoga"
+  },
+  {
+    "username": "MatthewLewis",
+    "age": 36,
+    "gender": "male",
+    "hobby": "running"
+  },
+  {
+    "username": "AbigailWalker",
+    "age": 34,
+    "gender": "female",
+    "hobby": "baking"
+  },
+  {
+    "username": "JoshuaHall",
+    "age": 27,
+    "gender": "male",
+    "hobby": "cycling"
+  },
+  {
+    "username": "IsabellaAllen",
+    "age": 28,
+    "gender": "female",
+    "hobby": "drawing"
+  },
+  {
+    "username": "AndrewYoung",
+    "age": 23,
+    "gender": "male",
+    "hobby": "singing"
+  },
+  {
+    "username": "SamanthaKing",
+    "age": 24,
+    "gender": "female",
+    "hobby": "fishing"
+  },
+  {
+    "username": "JosephScott",
+    "age": 22,
+    "gender": "male",
+    "hobby": "camping"
+  },
+  {
+    "username": "AvaGreen",
+    "age": 29,
+    "gender": "female",
+    "hobby": "crafting"
+  },
+  {
+    "username": "BenjaminBaker",
+    "age": 31,
+    "gender": "male",
+    "hobby": "hiking"
+  },
+  {
+    "username": "CharlotteNelson",
+    "age": 25,
+    "gender": "female",
+    "hobby": "swimming"
+  }
+]
